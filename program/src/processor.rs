@@ -41,13 +41,18 @@ impl Processor {
         let rent = Rent::from_account_info(rent_sysvar_account)?;
 
         // Find the non reversible public key for the vesting contract via the seed
-        let vesting_account_key = Pubkey::create_program_address(&[&seeds], &program_id).unwrap();
+        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], &program_id);
         if vesting_account_key != *vesting_account.key {
             msg!("Provided vesting account is invalid");
             return Err(ProgramError::InvalidArgument);
         }
 
         let state_size = (schedules as usize) * VestingSchedule::LEN + VestingScheduleHeader::LEN;
+
+        if !payer.is_signer{
+            msg!("Payer is not signer");
+            return Err(ProgramError::InvalidArgument);
+        }
 
         let init_vesting_account = create_account(
             &payer.key,
@@ -85,7 +90,7 @@ impl Processor {
         let source_token_account_owner = next_account_info(accounts_iter)?;
         let source_token_account = next_account_info(accounts_iter)?;
 
-        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
+        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
         if vesting_account_key != *vesting_account.key {
             msg!("Provided vesting account is invalid");
             return Err(ProgramError::InvalidArgument);
@@ -155,7 +160,7 @@ impl Processor {
             }
             offset += SCHEDULE_SIZE;
         }
-        
+
         if Account::unpack(&source_token_account.data.borrow())?.amount < total_amount {
             msg!("The source token account has insufficient funds.");
             return Err(ProgramError::InsufficientFunds)
@@ -195,7 +200,7 @@ impl Processor {
         let vesting_token_account = next_account_info(accounts_iter)?;
         let destination_token_account = next_account_info(accounts_iter)?;
 
-        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
+        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
         if vesting_account_key != *vesting_account.key {
             msg!("Invalid vesting account key");
             return Err(ProgramError::InvalidArgument);
@@ -224,12 +229,12 @@ impl Processor {
 
         // Unlock the schedules that have reached maturity
         let clock = Clock::from_account_info(&clock_sysvar_account)?;
-        let mut total_amount_to_transfer = 0;
+        let mut total_amount_to_transfer:u64 = 0;
         let mut schedules = unpack_schedules(&packed_state.borrow()[VestingScheduleHeader::LEN..])?;
 
         for s in schedules.iter_mut() {
             if clock.unix_timestamp as u64 >= s.release_time {
-                total_amount_to_transfer += s.amount;
+                total_amount_to_transfer = total_amount_to_transfer.checked_add(s.amount).unwrap();
                 s.amount = 0;
             }
         }
@@ -282,7 +287,7 @@ impl Processor {
         if vesting_account.data.borrow().len() < VestingScheduleHeader::LEN {
             return Err(ProgramError::InvalidAccountData)
         }
-        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
+        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
         let state = VestingScheduleHeader::unpack(
             &vesting_account.data.borrow()[..VestingScheduleHeader::LEN],
         )?;
