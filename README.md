@@ -1,7 +1,7 @@
 This code has been audited by Kudelski ✅ and QuillAudits ✅ 
 
 - Audit report: [Bonfida Token Vesting Report](/audit/Bonfida_SecurityAssessment_Vesting_Final050521.pdf)
-- Audit report: [QuillAudits Token Vesting Report](/audit/Enrex Smart Contract Audit Report - QuillAudits.pdf)
+- Audit report: [QuillAudits Token Vesting Report](/audit/Enrex_Smart_Contract_Audit_Report_QuillAudits.pdf)
 
 # Token vesting contract
 
