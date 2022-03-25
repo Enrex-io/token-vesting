@@ -41,7 +41,7 @@ impl Processor {
         let rent = Rent::from_account_info(rent_sysvar_account)?;
 
         // Find the non reversible public key for the vesting contract via the seed
-        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], &program_id);
+        let vesting_account_key = Pubkey::create_program_address(&[&seeds], &program_id).unwrap();
         if vesting_account_key != *vesting_account.key {
             msg!("Provided vesting account is invalid");
             return Err(ProgramError::InvalidArgument);
@@ -90,7 +90,7 @@ impl Processor {
         let source_token_account_owner = next_account_info(accounts_iter)?;
         let source_token_account = next_account_info(accounts_iter)?;
 
-        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
+        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
         if vesting_account_key != *vesting_account.key {
             msg!("Provided vesting account is invalid");
             return Err(ProgramError::InvalidArgument);
@@ -200,7 +200,7 @@ impl Processor {
         let vesting_token_account = next_account_info(accounts_iter)?;
         let destination_token_account = next_account_info(accounts_iter)?;
 
-        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
+        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
         if vesting_account_key != *vesting_account.key {
             msg!("Invalid vesting account key");
             return Err(ProgramError::InvalidArgument);
@@ -287,7 +287,7 @@ impl Processor {
         if vesting_account.data.borrow().len() < VestingScheduleHeader::LEN {
             return Err(ProgramError::InvalidAccountData)
         }
-        let (vesting_account_key, _) = Pubkey::find_program_address(&[&seeds], program_id);
+        let vesting_account_key = Pubkey::create_program_address(&[&seeds], program_id)?;
         let state = VestingScheduleHeader::unpack(
             &vesting_account.data.borrow()[..VestingScheduleHeader::LEN],
         )?;
