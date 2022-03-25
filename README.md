@@ -1,3 +1,5 @@
+This is a fork of Bonfida token vesting contract. Additional audit done by QuillAudits.
+
 This code has been audited by Kudelski ✅ and QuillAudits ✅ 
 
 - Audit report: [Bonfida Token Vesting Report](/audit/Bonfida_SecurityAssessment_Vesting_Final050521.pdf)
@@ -7,14 +9,9 @@ This code has been audited by Kudelski ✅ and QuillAudits ✅
 
 ## Program ID
 
-- mainnet: `CChTq6PthWU82YZkbveA3WDf7s97BWhBK4Vx9bmsT743`
-- devnet: `DLxB9dSQtA4WJ49hWFhxqiQkD9v6m67Yfk9voxpxrBs4`
+- mainnet: `__________________`
 
-## UI
 
-[Bonfida Token Vesting UI](https://vesting.bonfida.com)
-
-The UI **only** works for vesting accounts using the mainnet deployment `CChTq6PthWU82YZkbveA3WDf7s97BWhBK4Vx9bmsT743`
 
 ## Goal
 
