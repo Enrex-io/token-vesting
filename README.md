@@ -9,7 +9,7 @@ This code has been audited by Kudelski ✅ and QuillAudits ✅
 
 ## Program ID
 
-- mainnet vesting program for Enrex: `BWZYjLGYZNk4WXLBk53D5XG8QP4PzGy63jSDSVPjVmmm`
+- mainnet vesting program for Enrex: [BWZYjLGYZNk4WXLBk53D5XG8QP4PzGy63jSDSVPjVmmm](https://solscan.io/account/BWZYjLGYZNk4WXLBk53D5XG8QP4PzGy63jSDSVPjVmmm)
 
 - Source code: [Enrex token vesting](https://github.com/Enrex-io/token-vesting)
 
