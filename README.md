@@ -2,8 +2,8 @@ This is a fork of Bonfida token vesting contract. Additional audit done by Quill
 
 This code has been audited by Kudelski ✅ and QuillAudits ✅
 
-- Audit report: [Bonfida Token Vesting Report](/audit/Bonfida_SecurityAssessment_Vesting_Final050521.pdf)
-- Audit report: [QuillAudits Token Vesting Report](/audit/Enrex_Smart_Contract_Audit_Report_QuillAudits.pdf)
+- Audit report: [Bonfida Token Vesting Report](https://github.com/Enrex-io/token-vesting/blob/master/audit/Bonfida_SecurityAssessment_Vesting_Final050521.pdf)
+- Audit report: [QuillAudits Token Vesting Report](https://github.com/Enrex-io/token-vesting/blob/master/audit/Enrex_Smart_Contract_Audit_Report_QuillAudits.pdf)
 
 # Token vesting contract
 
